@@ -1,18 +1,16 @@
 from django.shortcuts import render, redirect, reverse
 from app.forms import LoginForm, RegisterForm
-from app.models import User
+from app.models import User, Movies
 from django.contrib import messages
 from .utils import *
 from django.db.models import Q
 
 
 def register(request):
-    print('asdsadasddasdadasd33333')
 
     if request.method == 'POST':
-        print('7777777777777777777777777777777')
-
         form = RegisterForm(request.POST)
+
         if form.is_valid():
 
             if User.objects.filter(email=form.cleaned_data['email']).exists():
@@ -41,9 +39,10 @@ def register(request):
 
 #
 def login_user(request):
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        print('asdsadasddasdadasd')
+
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -55,7 +54,7 @@ def login_user(request):
                 #if hashed_pass == user.get_pass():
                 #login(request, user)
                 messages.success(request, 'You are logged in')
-                return redirect(reverse('products')) ## change that
+                return redirect(reverse('movies')) ## change that
             else:
                 messages.error(request, 'Bad authentication')
                 return redirect(reverse('login_user'))
@@ -63,4 +62,15 @@ def login_user(request):
         form = LoginForm()
 
     return render(request, 'Login.html', {'form': form})
+
+
+def movies(request):
+    all_movies = Movies.objects.all()
+    return render(request, 'Movies.html', {'movies': all_movies})
+
+
+def add_to_wish_list(request, movie_id):
+    movie = Movies.objects.get(id=movie_id)
+    return render(request, 'Movies.html')
+
 

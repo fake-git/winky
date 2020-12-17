@@ -12,7 +12,19 @@ class User(models.Model):
         return self.password
 
 
-#  TODO: add here maybe class for movies
+class Movies(models.Model):
+
+    title = models.CharField(max_length=60)
+    actor = models.CharField(max_length=60)
+    rate = models.FloatField()
+    img = models.CharField(max_length=60)
+
+
+
+class WishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, null=True)
+
 
 
 

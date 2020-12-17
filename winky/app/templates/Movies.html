@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<h1>Movies</h1>
+<div class="row">
+{% for movie in movies %}
+<div class="card m-1" style="width: 18rem;">
+  <img src="{{movie.img}}" class="card-img-top" height="250" width="100">
+  <div class="card-body">
+    <h5 class="card-title"> Name: {{movie.title}}</h5>
+    <h5 class="card-title">Rate: {{movie.rate}}</h5>
+    <a href="" class="btn btn-primary">Add to Wish List</a>
+  </div>
+</div>
+
+{% endfor %}
+</div>
+
+{% endblock %}
+
+<!--{% url 'add_to_wish_list' movie.id%}-->
+<!--    <a href="{% url 'add_to_wish_list' movie.id%}" class="btn btn-primary">Add to Wish List</a>-->
